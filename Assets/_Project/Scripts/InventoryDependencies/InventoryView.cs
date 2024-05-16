@@ -24,6 +24,9 @@ public class InventoryView : MonoBehaviour
 
     public void CallInventory()
     {
+        if(_mainPanel.IsClosed && GameManager.GamePaused)
+        {return;}
+
         GameManager.OnGamePause?.Invoke();
         _mainPanel.MovementManagerCallback(ActiveControlInventoryPanel);
     }
@@ -37,6 +40,7 @@ public class InventoryView : MonoBehaviour
                 if (slot.GetCurrentItem() != null && item.ID == slot.AllocatedItemID)
                 {
                     slot.ItemQuantityChangeCallback();
+                    return;
                 }
             }
         }
@@ -64,6 +68,7 @@ public class InventoryView : MonoBehaviour
                 }
 
                 _currentSlotSelected = null;
+                OnSelectSlot?.Invoke(0);
                 slot.RemoveItemFromInventory();
             }
         }
@@ -82,15 +87,8 @@ public class InventoryView : MonoBehaviour
 
     private void Initializations()
     {
-        _closeButton.onClick.AddListener(() =>
-        {
-            GameManager.OnGamePause?.Invoke();
-            _mainPanel.MovementManagerCallback(ActiveControlInventoryPanel);
-        });
-
-       _inventoryPanel.SetActive(false);
-
-       SetupInventorySlots();
+        _closeButton.onClick.AddListener(CallInventory);
+        SetupInventorySlots();
     }
 
     private void ActiveControlInventoryPanel()
@@ -105,6 +103,8 @@ public class InventoryView : MonoBehaviour
             slot.OnItemSelected += ItemSelectedCallback;
             OnSelectSlot += slot.OnSelectItemCallback;
         }
+
+        ActiveControlInventoryPanel();
     }
 
     private void ItemSelectedCallback(SlotBehavior slotSelected)

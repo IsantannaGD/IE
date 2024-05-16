@@ -11,6 +11,8 @@ public class PanelMovementController : MonoBehaviour
     [SerializeField] private bool _animationRunning = false;
     [SerializeField] private bool _isClosed;
 
+    public bool IsClosed => _isClosed;
+
     public void MovementManagerCallback(Action callback = null)
     {
         if(_animationRunning)

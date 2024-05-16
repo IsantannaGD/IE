@@ -35,12 +35,23 @@ public class PlayerInputManager : MonoBehaviour
 
     public void Interactive(InputAction.CallbackContext context)
     {
+        if(GameManager.GamePaused)
+        {return;}
+
         if (context.performed)
         {
             if (_interactableObject != null)
             {
                 _interactableObject.InteractionCallback(_player);
             }
+        }
+    }
+
+    public void OpenSettings(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            GameManager.OnCallSettings?.Invoke();
         }
     }
 

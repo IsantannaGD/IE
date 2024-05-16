@@ -16,4 +16,4 @@ MonoBehaviour:
   _itemAppear: {fileID: 21300000, guid: 2ce80c9447c96484bb9dc46a37112234, type: 3}
   _itemName: Notepad
   _quantity: 0
-  _itemPrefab: {fileID: 7758129831808767110, guid: 26fdb45ebfb2f0d4599fa3b3446072d7, type: 3}
+  _itemPrefab: {fileID: 4132486261766199541, guid: fb078cfb33fc5ba41a2550f15dcef4e3, type: 3}
